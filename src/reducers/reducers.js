@@ -1,3 +1,5 @@
+import { ADDFEATURE, } from "../actions"
+
 const Initial_State = {
     additionalPrice: 0,
     car: {
@@ -16,8 +18,18 @@ const Initial_State = {
 }
 function reducer (state=Initial_State, action) { 
     switch (action.type) { //determines how we route
+          case "ADDFEATURE":
+            console.log('Add Features')
+            console.log(action.payload.id)
+            console.log(action.payload.name)
+      return {
+        ...state, 
+        additionalPrice: (state.additionalPrice += action.payload.price),
+        car: {...state.car, features: [...state.car.features, action.payload]},
+        additionalFeatures: state.additionalFeatures.filter(item => item.id !== action.payload.id )
+      }
         default: 
-        return state
+        return 
     }
 }
 export default reducer 
